@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 
-<html>
+<html> 
 
 <head>
 
@@ -27,3 +27,408 @@ body {
 }
 
 h1 { color: #65adff
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NYAY AI - Legal Awareness Kiosk</title>
+
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+
+body {
+
+  background: #101a2d;
+
+  color: white;
+
+  font-family: Arial, sans-serif;
+
+  text-align: center;
+
+  padding: 15px;
+
+}
+
+h1 { color: #65adff; }
+
+.panel {
+
+  background: #1c2c46;
+
+  padding: 18px;
+
+  margin: 15px auto;
+
+  border-radius: 12px;
+
+  max-width: 600px;
+
+}
+
+button {
+
+  background: #1677d2;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px 18px;
+
+  margin: 7px;
+
+  border-radius: 8px;
+
+  font-size: 16px;
+
+}
+
+button:disabled { opacity: 0.5; }
+
+.case {
+
+  background: white;
+
+  color: #101a2d;
+
+  padding: 12px;
+
+  margin: 12px auto;
+
+  border-radius: 8px;
+
+  max-width: 250px;
+
+}
+
+.qr {
+
+  display: flex;
+
+  justify-content: center;
+
+  margin: 10px;
+
+}
+
+#reader {
+
+  background: white;
+
+  color: black;
+
+  max-width: 350px;
+
+  margin: auto;
+
+}
+
+#answer { line-height: 1.6; text-align: left; }
+
+.small { font-size: 13px; color: #cbd5e1; }
+
+@media print {
+
+  body { background: white; color: black; }
+
+  .no-print { display: none !important; }
+
+  .case { display: inline-block; border: 1px solid black; }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>⚖️ NYAY AI</h1>
+
+<h3>Legal Awareness Kiosk</h3>
+
+<p>Know Your Rights. Understand Your Laws.</p>
+
+<div class="panel no-print">
+
+  <h2>Scan Your Case Card</h2>
+
+  <p>Insert or hold your case card near the tablet camera.</p>
+
+  <div id="reader"></div>
+
+  <button onclick="startScanner()">Start QR Scanner</button>
+
+  <button onclick="stopScanner()">Stop Scanner</button>
+
+  <p id="status">Scanner is not started.</p>
+
+</div>
+
+<div class="panel">
+
+  <h2 id="answerTitle">Your Legal Answer Will Appear Here</h2>
+
+  <div id="answer">
+
+    Scan one of the NYAY AI case cards to see its legal explanation.
+
+  </div>
+
+  <button onclick="window.print()">Print Answer</button>
+
+</div>
+
+<div class="panel no-print">
+
+  <h2>Test the Three Cases</h2>
+
+  <button onclick="showCase('CONSUMER')">Consumer Rights</button>
+
+  <button onclick="showCase('CYBER')">Cyber Safety</button>
+
+  <button onclick="showCase('EQUALITY')">Right to Equality</button>
+
+</div>
+
+<div class="panel no-print">
+
+  <h2>Generate Your Case Cards</h2>
+
+  <p class="small">Print these cards and use their QR codes with the scanner.</p>
+
+  <div class="case">
+
+    <h3>Consumer Rights</h3>
+
+    <div class="qr" id="qr1"></div>
+
+    <p>NYAY-CONSUMER</p>
+
+  </div>
+
+  <div class="case">
+
+    <h3>Cyber Safety</h3>
+
+    <div class="qr" id="qr2"></div>
+
+    <p>NYAY-CYBER</p>
+
+  </div>
+
+  <div class="case">
+
+    <h3>Right to Equality</h3>
+
+    <div class="qr" id="qr3"></div>
+
+    <p>NYAY-EQUALITY</p>
+
+  </div>
+
+  <button onclick="window.print()">Print Case Cards</button>
+
+</div>
+
+<p class="small">Educational project only. This kiosk provides general legal awareness, not professional legal advice.</p>
+
+<script>
+
+const cases = {
+
+  CONSUMER: {
+
+    title: "Consumer Rights",
+
+    text: `
+
+      <b>Situation:</b> You ordered a product online, but it arrived damaged and the seller refuses to help.
+
+      <br><br><b>Relevant law:</b> Consumer Protection Act, 2019.
+
+      <br><br><b>Your rights:</b> Consumers can seek a remedy for defective goods or unfair trade practices.
+
+      <br><br><b>What you can do:</b>
+
+      <br>1. Keep your bill and order details.
+
+      <br>2. Contact the seller or platform.
+
+      <br>3. If unresolved, seek help through the National Consumer Helpline.
+
+      <br><br><b>Remember:</b> Keep proof of your purchase and complaint.
+
+    `
+
+  },
+
+  CYBER: {
+
+    title: "Cyber Safety",
+
+    text: `
+
+      <b>Situation:</b> You receive a suspicious message asking for your bank details or OTP.
+
+      <br><br><b>Important:</b> Never share your OTP, PIN or password with anyone.
+
+      <br><br><b>What you should do:</b>
+
+      <br>1. Do not click suspicious links.
+
+      <br>2. Do not share banking information.
+
+      <br>3. Save the message as evidence.
+
+      <br>4. Report cybercrime through the official Indian cybercrime portal: cybercrime.gov.in.
+
+      <br><br><b>Remember:</b> Stay alert and protect your personal information.
+
+    `
+
+  },
+
+  EQUALITY: {
+
+    title: "Right to Equality",
+
+    text: `
+
+      <b>Situation:</b> A person is treated unfairly by the State only because of their religion, race, caste, sex or place of birth.
+
+      <br><br><b>Relevant law:</b> Article 14 of the Constitution of India guarantees equality before the law and equal protection of the laws.
+
+      <br><br><b>Why it matters:</b> The law should treat people equally and protect everyone fairly.
+
+      <br><br><b>Remember:</b> Equality is a fundamental right under the Indian Constitution.
+
+    `
+
+  }
+
+};
+
+function showCase(id) {
+
+  const item = cases[id];
+
+  document.getElementById("answerTitle").innerText = item.title;
+
+  document.getElementById("answer").innerHTML = item.text;
+
+}
+
+function onScanSuccess(decodedText) {
+
+  const code = decodedText.trim().toUpperCase();
+
+  if (code === "NYAY-CONSUMER") {
+
+    showCase("CONSUMER");
+
+  } else if (code === "NYAY-CYBER") {
+
+    showCase("CYBER");
+
+  } else if (code === "NYAY-EQUALITY") {
+
+    showCase("EQUALITY");
+
+  } else {
+
+    document.getElementById("answerTitle").innerText = "Card Not Recognised";
+
+    document.getElementById("answer").innerText =
+
+      "Please scan an official NYAY AI case card.";
+
+  }
+
+  document.getElementById("status").innerText = "QR code scanned!";
+
+}
+
+let scanner = null;
+
+async function startScanner() {
+
+  try {
+
+    if (!scanner) {
+
+      scanner = new Html5Qrcode("reader");
+
+    }
+
+    await scanner.start(
+
+      { facingMode: "environment" },
+
+      { fps: 10, qrbox: 220 },
+
+      onScanSuccess
+
+    );
+
+    document.getElementById("status").innerText =
+
+      "Camera is active. Scan a case card.";
+
+  } catch (error) {
+
+    document.getElementById("status").innerText =
+
+      "Camera could not start. Allow camera permission and try again.";
+
+  }
+
+}
+
+async function stopScanner() {
+
+  if (scanner && scanner.isScanning) {
+
+    await scanner.stop();
+
+    document.getElementById("status").innerText = "Scanner stopped.";
+
+  }
+
+}
+
+window.onload = function() {
+
+  new QRCode(document.getElementById("qr1"), {
+
+    text: "NYAY-CONSUMER", width: 120, height: 120
+
+  });
+
+  new QRCode(document.getElementById("qr2"), {
+
+    text: "NYAY-CYBER", width: 120, height: 120
+
+  });
+
+  new QRCode(document.getElementById("qr3"), {
+
+    text: "NYAY-EQUALITY", width: 120, height: });
+
+};
+
+</script>
+
+</body>
+
+</html>
