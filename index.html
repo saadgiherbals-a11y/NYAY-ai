@@ -16,9 +16,15 @@
 
 <style>
 
+* { box-sizing: border-box; }
+
 body {
 
-  background: #101a2d;
+  margin: 0;
+
+  padding: 20px;
+
+  background: #071a35;
 
   color: white;
 
@@ -26,67 +32,35 @@ body {
 
   text-align: center;
 
-  padding: 15px;
+}
+
+header { margin-bottom: 20px; }
+
+h1 {
+
+  color: #f4c542;
+
+  font-size: 36px;
+
+  margin-bottom: 5px;
 
 }
 
-h1 { color: #65adff; }
+.subtitle { color: #d7e5f7; }
 
 .panel {
 
-  background: #1c2c46;
+  background: #102c50;
 
-  padding: 18px;
+  border: 2px solid #f4c542;
 
-  margin: 15px auto;
+  border-radius: 16px;
 
-  border-radius: 12px;
+  padding: 20px;
 
-  max-width: 600px;
+  margin: 18px auto;
 
-}
-
-button {
-
-  background: #1677d2;
-
-  color: white;
-
-  border: none;
-
-  padding: 12px 18px;
-
-  margin: 7px;
-
-  border-radius: 8px;
-
-  font-size: 16px;
-
-}
-
-.case {
-
-  background: white;
-
-  color: #101a2d;
-
-  padding: 12px;
-
-  margin: 12px auto;
-
-  border-radius: 8px;
-
-  max-width: 250px;
-
-}
-
-.qr {
-
-  display: flex;
-
-  justify-content: center;
-
-  margin: 10px;
+  max-width: 850px;
 
 }
 
@@ -96,35 +70,219 @@ button {
 
   color: black;
 
-  max-width: 350px;
+  max-width: 500px;
 
-  margin: auto;
+  margin: 15px auto;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+}
+
+button {
+
+  background: #f4c542;
+
+  color: #071a35;
+
+  border: none;
+
+  border-radius: 8px;
+
+  padding: 13px 20px;
+
+  margin: 8px;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+}
+
+button.secondary {
+
+  background: #dce8f6;
+
+}
+
+button:disabled {
+
+  opacity: 0.5;
+
+}
+
+.hidden { display: none !important; }
+
+#status {
+
+  color: #f4c542;
+
+  font-weight: bold;
+
+  margin: 12px;
 
 }
 
 #answer {
 
-  line-height: 1.6;
-
   text-align: left;
+
+  background: white;
+
+  color: #172b45;
+
+  padding: 24px;
+
+  border-radius: 12px;
+
+  margin: 20px auto;
+
+  max-width: 850px;
+
+  line-height: 1.6;
 
 }
 
-.small {
+#answer h2 {
+
+  color: #0b376b;
+
+  text-align: center;
+
+}
+
+#answer h3 {
+
+  color: #174b7d;
+
+  margin-bottom: 5px;
+
+}
+
+.answer-section {
+
+  border-bottom: 1px solid #d6e0eb;
+
+  padding: 8px 0;
+
+}
+
+#cardsArea {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+
+  gap: 15px;
+
+  max-width: 950px;
+
+  margin: 20px auto;
+
+}
+
+.qr-card {
+
+  background: white;
+
+  color: #142c48;
+
+  border-radius: 12px;
+
+  padding: 15px;
+
+  page-break-inside: avoid;
+
+}
+
+.qr-card h3 { margin: 5px; }
+
+.qr-image {
+
+  display: flex;
+
+  justify-content: center;
+
+  margin: 12px auto;
+
+}
+
+.small { font-size: 13px; }
+
+footer {
+
+  color: #c5d5e8;
+
+  margin: 30px auto;
+
+  max-width: 800px;
 
   font-size: 13px;
-
-  color: #cbd5e1;
 
 }
 
 @media print {
 
-  body { background: white; color: black; }
+  body {
 
-  .no-print { display: none !important; }
+    background: white !important;
 
-  .case { display: inline-block; border: 1px solid black; }
+    color: black !important;
+
+    padding: 0;
+
+  }
+
+  header, #scannerPanel, #cardsPanel,
+
+  #controls, footer, #status {
+
+    display: none !important;
+
+  }
+
+  #answer {
+
+    display: block !important;
+
+    color: black !important;
+
+    max-width: 100%;
+
+    margin: 0;
+
+    padding: 10px;
+
+    border: none;
+
+  }
+
+  body.print-cards #answer { display: none !important; }
+
+  body.print-cards #cardsPanel {
+
+    display: block !important;
+
+  }
+
+  body.print-cards #cardsArea {
+
+    display: grid !important;
+
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+
+  .qr-card {
+
+    border: 1px solid black;
+
+    margin: 8px;
+
+  }
 
 }
 
@@ -134,233 +292,527 @@ button {
 
 <body>
 
-<h1>⚖️ NYAY AI</h1>
+<header>
 
-<h3>Legal Awareness Kiosk</h3>
+  <h1>⚖️ NYAY AI</h1>
 
-<p>Know Your Rights. Understand Your Laws.</p>
+  <p class="subtitle">Your Digital Legal Awareness Assistant</p>
 
-<div class="panel no-print">
+  <p>Scan a QR card to understand your legal rights in India.</p>
 
-  <h2>Scan Your Case Card</h2>
+</header>
 
-  <p>Hold your case card near the tablet camera.</p>
+<div class="panel" id="scannerPanel">
+
+  <h2>📷 Scan Your Legal Awareness Card</h2>
+
+  <p>Hold a NYAY AI QR card in front of the camera.</p>
 
   <div id="reader"></div>
 
-  <button onclick="startScanner()">Start QR Scanner</button>
+  <button id="startButton" onclick="startScanner()">
 
-  <button onclick="stopScanner()">Stop Scanner</button>
+    START CAMERA
 
-  <p id="status">Scanner is not started.</p>
+  </button>
 
-</div>
-
-<div class="panel">
-
-  <h2 id="answerTitle">Your Legal Answer Will Appear Here</h2>
-
-  <div id="answer">
-
-    Scan a NYAY AI case card or select a test case below.
-
-  </div>
-
-  <button onclick="window.print()">Print Answer</button>
+  <p id="status">Preparing camera...</p>
 
 </div>
 
-<div class="panel no-print">
+<div id="answer" class="hidden"></div>
 
-  <h2>Test the Three Cases</h2>
+<div id="controls" class="hidden">
 
-  <button onclick="showCase('CONSUMER')">Consumer Rights</button>
+  <button onclick="printAnswer()">🖨 PRINT SOLUTION</button>
 
-  <button onclick="showCase('CYBER')">Cyber Safety</button>
-
-  <button onclick="showCase('EQUALITY')">Right to Equality</button>
+  <button class="secondary" onclick="resetAndScan()">SCAN NEXT CARD</button>
 
 </div>
 
-<div class="panel no-print">
+<div class="panel" id="cardsPanel">
 
-  <h2>Generate Your Case Cards</h2>
+  <h2>📚 NYAY AI QR Cards</h2>
 
-  <p class="small">Print these cards and scan their QR codes.</p>
+  <p>These are the seven topics included in the project.</p>
 
-  <div class="case">
+  <div id="cardsArea"></div>
 
-    <h3>Consumer Rights</h3>
-
-    <div class="qr" id="qr1"></div>
-
-    <p>NYAY-CONSUMER</p>
-
-  </div>
-
-  <div class="case">
-
-    <h3>Cyber Safety</h3>
-
-    <div class="qr" id="qr2"></div>
-
-    <p>NYAY-CYBER</p>
-
-  </div>
-
-  <div class="case">
-
-    <h3>Right to Equality</h3>
-
-    <div class="qr" id="qr3"></div>
-
-    <p>NYAY-EQUALITY</p>
-
-  </div>
-
-  <button onclick="window.print()">Print Case Cards</button>
+  <button onclick="printCards()">PRINT ALL QR CARDS</button>
 
 </div>
 
-<p class="small">
+<footer>
 
-Educational project only. This kiosk provides general legal awareness,
+  NYAY AI is an educational legal-awareness project.
 
-not professional legal advice.
+  It provides general information, not personalised legal advice.
 
-</p>
+  Laws and procedures may change. Verify details with official
+
+  government sources or a qualified legal professional.
+
+</footer>
 
 <script>
 
 const cases = {
 
-  CONSUMER: {
+  "NYAY-CONSUMER": {
 
     title: "Consumer Rights",
 
-    text: `
+    situation: "A person purchases a new mobile phone. Soon after purchase, the phone develops a fault. The seller refuses to help, even though the customer has the bill and warranty.",
 
-      <b>Situation:</b> You ordered a product online, but it arrived damaged and the seller refuses to help.
+    law: "Consumer Protection Act, 2019.",
 
-      <br><br><b>Relevant law:</b> Consumer Protection Act, 2019.
+    meaning: "This law protects consumers against unfair trade practices, defective goods, deficient services and misleading advertisements. It provides a system for consumer grievance redressal.",
 
-      <br><br><b>Your rights:</b> Consumers can seek a remedy for defective goods or unfair trade practices.
+    rights: [
 
-      <br><br><b>What you can do:</b>
+      "Right to be protected against unsafe goods and services.",
 
-      <br>1. Keep your bill and order details.
+      "Right to receive correct information about products and services.",
 
-      <br>2. Contact the seller or platform.
+      "Right to choose from available products and services.",
 
-      <br>3. If unresolved, seek help through the National Consumer Helpline.
+      "Right to be heard when making a consumer complaint.",
 
-      <br><br><b>Remember:</b> Keep proof of your purchase and complaint.
+      "Right to seek redressal for genuine consumer grievances."
 
-    `
+    ],
+
+    steps: [
+
+      "Keep the purchase bill, warranty card, messages and photographs of the problem.",
+
+      "Contact the seller or manufacturer and explain the issue in writing.",
+
+      "If the problem remains unresolved, contact the National Consumer Helpline.",
+
+      "You may approach the appropriate Consumer Commission when necessary."
+
+    ],
+
+    help: "National Consumer Helpline: 1915 or 1800-11-4000. Website: consumerhelpline.gov.in",
+
+    takeaway: "Always ask for a bill, read product details and know your consumer rights."
 
   },
 
-  CYBER: {
+  "NYAY-CYBER": {
 
     title: "Cyber Safety",
 
-    text: `
+    situation: "A student receives a message claiming to be from a bank. The message asks the student to click a link and enter an OTP. The student is unsure whether the message is genuine.",
 
-      <b>Situation:</b> You receive a suspicious message asking for your bank details or OTP.
+    law: "Information Technology Act, 2000, along with other applicable criminal laws.",
 
-      <br><br><b>Important:</b> Never share your OTP, PIN or password with anyone.
+    meaning: "Indian law addresses various forms of cyber offences, including certain forms of identity misuse, online impersonation and unauthorised access. Sharing an OTP or password can put accounts and money at risk.",
 
-      <br><br><b>What you should do:</b>
+    rights: [
 
-      <br>1. Do not click suspicious links.
+      "You should not be tricked into giving away private information.",
 
-      <br>2. Do not share banking information.
+      "You can report suspected online fraud and cybercrime.",
 
-      <br>3. Save the message as evidence.
+      "You should protect your passwords, OTPs and banking details.",
 
-      <br>4. Report cybercrime through cybercrime.gov.in.
+      "You can seek help from the relevant cybercrime authorities."
 
-      <br>5. For financial cyber fraud, call 1930 promptly.
+    ],
 
-      <br><br><b>Remember:</b> Protect your personal information.
+    steps: [
 
-    `
+      "Never share an OTP, password, PIN or banking details with someone who contacts you unexpectedly.",
+
+      "Do not click suspicious links or download unknown attachments.",
+
+      "Save relevant messages, screenshots and transaction information.",
+
+      "Inform a trusted adult and contact your bank immediately if money is involved.",
+
+      "Report cybercrime through the official National Cyber Crime Reporting Portal."
+
+    ],
+
+    help: "For financial cyber fraud, call 1930 promptly. Website: cybercrime.gov.in",
+
+    takeaway: "Think before you click. Never share your OTP or password."
 
   },
 
-  EQUALITY: {
+  "NYAY-EQUALITY": {
 
     title: "Right to Equality",
 
-    text: `
+    situation: "A qualified person is unfairly denied an opportunity in a public institution only because of their religion, race, caste, sex or place of birth.",
 
-      <b>Situation:</b> A person is treated unfairly by the State only because of their religion, race, caste, sex or place of birth.
+    law: "Constitution of India, Articles 14, 15, 16, 17 and 18.",
 
-      <br><br><b>Relevant law:</b> Article 14 of the Constitution of India guarantees equality before the law and equal protection of the laws.
+    meaning: "Article 14 guarantees equality before the law and equal protection of the laws. Article 15 prohibits certain forms of discrimination. Article 16 concerns equality of opportunity in public employment. Articles 17 and 18 address untouchability and titles.",
 
-      <br><br><b>Why it matters:</b> The law should treat people equally and protect everyone fairly.
+    rights: [
 
-      <br><br><b>Remember:</b> Equality is a fundamental right under the Indian Constitution.
+      "Equal protection of the laws.",
 
-    `
+      "Protection against discrimination on specified grounds under Article 15.",
+
+      "Equality of opportunity in matters of public employment under Article 16, subject to constitutional provisions.",
+
+      "Abolition of untouchability under Article 17.",
+
+      "Abolition of certain titles under Article 18."
+
+    ],
+
+    steps: [
+
+      "Understand which constitutional right may apply to the situation.",
+
+      "Keep relevant documents, notices and written communication.",
+
+      "Raise the issue with the appropriate institution or authority.",
+
+      "Seek guidance from a legal services authority or qualified lawyer if needed."
+
+    ],
+
+    help: "You may seek guidance from the National Legal Services Authority or your State Legal Services Authority.",
+
+    takeaway: "Every person deserves dignity, fairness and equal protection under the law."
+
+  },
+
+  "NYAY-EDUCATION": {
+
+    title: "Right to Education",
+
+    situation: "A child aged 8 is unable to attend elementary school because the family cannot afford the basic school fees.",
+
+    law: "Article 21A of the Constitution of India and the Right of Children to Free and Compulsory Education Act, 2009.",
+
+    meaning: "Article 21A provides for free and compulsory education for children aged 6 to 14 years. The RTE Act creates a legal framework for their elementary education.",
+
+    rights: [
+
+      "Children aged 6 to 14 have a right to free and compulsory elementary education.",
+
+      "The government has duties relating to admission, attendance and completion of elementary education.",
+
+      "The Act prohibits capitation fees and screening procedures for admission.",
+
+      "The Act also prohibits physical punishment and mental harassment of children."
+
+    ],
+
+    steps: [
+
+      "Speak with the school head or principal about the issue.",
+
+      "Keep copies of admission papers, fee demands or written refusals.",
+
+      "Contact the local education department or appropriate education authority.",
+
+      "Ask a parent, guardian or trusted adult to help raise the complaint."
+
+    ],
+
+    help: "Contact the relevant local or State Education Department for guidance.",
+
+    takeaway: "Education is a right for every child aged 6 to 14 under Article 21A."
+
+  },
+
+  "NYAY-ROAD": {
+
+    title: "Road Safety",
+
+    situation: "A teenager wants to drive a motor vehicle on a public road without meeting the legal age and licensing requirements.",
+
+    law: "Motor Vehicles Act, 1988 and applicable motor vehicle rules.",
+
+    meaning: "The law regulates driving licences, road use, vehicle safety and traffic responsibilities. Driving requirements depend on the type of vehicle and applicable legal conditions.",
+
+    rights: [
+
+      "Road users are entitled to use roads subject to traffic laws.",
+
+      "Drivers must follow applicable licensing and safety requirements.",
+
+      "Passengers should use appropriate safety equipment.",
+
+      "Pedestrians should follow road signs and crossing rules."
+
+    ],
+
+    steps: [
+
+      "Do not drive a motor vehicle unless legally eligible and properly licensed.",
+
+      "Wear a helmet on a two-wheeler and use a seat belt in a car.",
+
+      "Never use a mobile phone while driving.",
+
+      "Follow traffic signals, road signs and speed limits.",
+
+      "Report dangerous road conditions to the relevant local authority."
+
+    ],
+
+    help: "For emergencies, call 112. For traffic-related issues, contact the local traffic police.",
+
+    takeaway: "Road safety is everyone's responsibility. Follow the rules and protect lives."
+
+  },
+
+  "NYAY-ENVIRONMENT": {
+
+    title: "Environmental Protection",
+
+    situation: "A factory releases waste into a nearby water body, creating pollution and affecting the surrounding community.",
+
+    law: "Environment (Protection) Act, 1986; Constitution of India, Article 48A and Article 51A(g).",
+
+    meaning: "Article 48A directs the State to protect and improve the environment. Article 51A(g) makes it a fundamental duty of citizens to protect and improve the natural environment. The Environment (Protection) Act provides a legal framework for environmental protection.",
+
+    rights: [
+
+      "People can raise concerns about environmental pollution.",
+
+      "Environmental laws regulate activities that may harm the environment.",
+
+      "Citizens have a fundamental duty to protect forests, lakes, rivers, wildlife and other natural surroundings.",
+
+      "Government authorities have responsibilities under environmental laws."
+
+    ],
+
+    steps: [
+
+      "Avoid confronting potentially dangerous situations yourself.",
+
+      "Record basic details of the environmental concern from a safe place.",
+
+      "Inform the relevant local authority or State Pollution Control Board.",
+
+      "Encourage responsible waste disposal and conservation practices."
+
+    ],
+
+    help: "Contact the relevant State Pollution Control Board or local environmental authority.",
+
+    takeaway: "Protecting nature is both a public responsibility and a constitutional duty."
+
+  },
+
+  "NYAY-WOMEN": {
+
+    title: "Women's Legal Rights",
+
+    situation: "A woman experiences harassment at her workplace and is unsure where to make a complaint.",
+
+    law: "Constitution of India, Articles 14, 15 and 21; Sexual Harassment of Women at Workplace Act, 2013; Protection of Women from Domestic Violence Act, 2005.",
+
+    meaning: "The Constitution protects equality and personal liberty. The workplace harassment law provides a complaint and inquiry framework for sexual harassment at workplaces. The Domestic Violence Act provides legal protections and reliefs in situations covered by that law.",
+
+    rights: [
+
+      "Women are entitled to equality and protection under the Constitution.",
+
+      "The workplace harassment law provides a system for addressing sexual harassment at work.",
+
+      "Eligible workplaces must have an Internal Committee as provided by the law.",
+
+      "The Domestic Violence Act provides remedies such as protection and residence orders in applicable cases."
+
+    ],
+
+    steps: [
+
+      "If there is immediate danger, move to a safer place and seek urgent help.",
+
+      "For workplace harassment, approach the workplace Internal Committee where applicable.",
+
+      "Where there is no Internal Committee or the law provides for it, contact the relevant Local Committee.",
+
+      "Seek support from a trusted person, Protection Officer or legal services authority.",
+
+      "Keep relevant messages or documents where it is safe and appropriate to do so."
+
+    ],
+
+    help: "Emergency assistance: 112. Women Helpline: 181, where available in the State. You may also contact a local legal services authority.",
+
+    takeaway: "Every woman deserves safety, dignity, equality and access to legal protection."
 
   }
 
 };
 
-function showCase(id) {
+let scanner = null;
 
-  const item = cases[id];
+let scannerRunning = false;
 
-  if (!item) return;
+let hasScanned = false;
 
-  document.getElementById("answerTitle").innerText = item.title;
+let currentCase = null;
 
-  document.getElementById("answer").innerHTML = item.text;
+let printingAnswer = false;
+
+function escapeHTML(value) {
+
+  return String(value).replace(/[&<>"']/g, function(char) {
+
+    return {
+
+      "&": "&amp;",
+
+      "<": "&lt;",
+
+      ">": "&gt;",
+
+      '"': "&quot;",
+
+      "'": "&#039;"
+
+    }[char];
+
+  });
 
 }
 
-function onScanSuccess(decodedText) {
+function showAnswer(code) {
 
-  const code = decodedText.trim().toUpperCase();
+  const item = cases[code];
 
-  if (code === "NYAY-CONSUMER") {
+  if (!item) {
 
-    showCase("CONSUMER");
+    document.getElementById("status").textContent =
 
-  } else if (code === "NYAY-CYBER") {
+      "This QR card is not recognised. Please use a NYAY AI card.";
 
-    showCase("CYBER");
-
-  } else if (code === "NYAY-EQUALITY") {
-
-    showCase("EQUALITY");
-
-  } else {
-
-    document.getElementById("answerTitle").innerText = "Card Not Recognised";
-
-    document.getElementById("answer").innerText =
-
-      "Please scan an official NYAY AI case card.";
+    return;
 
   }
 
-  document.getElementById("status").innerText = "QR code scanned!";
+  currentCase = item;
+
+  hasScanned = true;
+
+  const rights = item.rights.map(x =>
+
+    "<li>" + escapeHTML(x) + "</li>"
+
+  ).join("");
+
+  const steps = item.steps.map(x =>
+
+    "<li>" + escapeHTML(x) + "</li>"
+
+  ).join("");
+
+  document.getElementById("answer").innerHTML = `
+
+    <h2>⚖️ ${escapeHTML(item.title)}</h2>
+
+    <div class="answer-section">
+
+      <h3>1. Sample Situation</h3>
+
+      <p>${escapeHTML(item.situation)}</p>
+
+    </div>
+
+    <div class="answer-section">
+
+      <h3>2. Relevant Indian Law</h3>
+
+      <p>${escapeHTML(item.law)}</p>
+
+    </div>
+
+    <div class="answer-section">
+
+      <h3>3. What Does the Law Mean?</h3>
+
+      <p>${escapeHTML(item.meaning)}</p>
+
+    </div>
+
+    <div class="answer-section">
+
+      <h3>4. Important Rights</h3>
+
+      <ul>${rights}</ul>
+
+    </div>
+
+    <div class="answer-section">
+
+      <h3>5. Practical Steps</h3>
+
+      <ol>${steps}</ol>
+
+    </div>
+
+    <div class="answer-section">
+
+      <h3>6. Where Can You Get Help?</h3>
+
+      <p>${escapeHTML(item.help)}</p>
+
+    </div>
+
+    <div class="answer-section">
+
+      <h3>7. Key Takeaway</h3>
+
+      <p><strong>${escapeHTML(item.takeaway)}</strong></p>
+
+    </div>
+
+    <hr>
+
+    <p class="small">
+
+      Educational information only. This is not personalised legal advice.
+
+      Please verify the law and procedure with an appropriate authority.
+
+    </p>
+
+    <p class="small"><strong>NYAY AI — Know Your Rights. Know the Law.</strong></p>
+
+  `;
+
+  document.getElementById("answer").classList.remove("hidden");
+
+  document.getElementById("controls").classList.remove("hidden");
+
+  document.getElementById("status").textContent =
+
+    "Card recognised! Your legal explanation is ready.";
+
+  document.getElementById("scannerPanel").classList.add("hidden");
+
+  stopScanner();
 
 }
 
-let scanner = null;
-
 async function startScanner() {
 
+  if (scannerRunning || hasScanned) return;
+
+  const status = document.getElementById("status");
+
+  const startButton = document.getElementById("startButton");
+
+  status.textContent = "Requesting camera permission...";
+
+  startButton.disabled = true;
+
   try {
-
-    if (typeof Html5Qrcode === "undefined") {
-
-      throw new Error("Scanner library did not load.");
-
-    }
 
     if (!scanner) {
 
@@ -368,31 +820,51 @@ async function startScanner() {
 
     }
 
-    if (scanner.isScanning) {
-
-      return;
-
-    }
-
     await scanner.start(
 
       { facingMode: "environment" },
 
-      { fps: 10, qrbox: 220 },
+      {
 
-      onScanSuccess
+        fps: 10,
+
+        qrbox: { width: 230, height: 230 }
+
+      },
+
+      (decodedText) => {
+
+        const code = decodedText.trim();
+
+        if (cases[code] && !hasScanned) {
+
+          showAnswer(code);
+
+        }
+
+      },
+
+      () => {}
 
     );
 
-    document.getElementById("status").innerText =
+    scannerRunning = true;
 
-      "Camera is active. Scan a case card.";
+    status.textContent = "Camera is ready. Show a QR card.";
+
+    startButton.disabled = false;
+
+    startButton.textContent = "CAMERA RUNNING";
 
   } catch (error) {
 
-    document.getElementById("status").innerText =
+    status.textContent =
 
-      "Scanner error: " + error.message;
+      "Camera could not start. Check Safari camera permission and tap Start Camera again.";
+
+    startButton.disabled = false;
+
+    startButton.textContent = "RETRY START CAMERA";
 
   }
 
@@ -400,67 +872,141 @@ async function startScanner() {
 
 async function stopScanner() {
 
-  try {
+  if (scanner && scannerRunning) {
 
-    if (scanner && scanner.isScanning) {
+    try {
 
       await scanner.stop();
 
-      document.getElementById("status").innerText = "Scanner stopped.";
+      scannerRunning = false;
+
+    } catch (error) {
+
+      scannerRunning = false;
 
     }
-
-  } catch (error) {
-
-    document.getElementById("status").innerText =
-
-      "Could not stop scanner: " + error.message;
 
   }
 
 }
 
-window.addEventListener("load", function() {
+function printAnswer() {
 
-  if (typeof QRCode === "undefined") {
+  if (!currentCase) return;
 
-    document.getElementById("status").innerText =
+  printingAnswer = true;
 
-      "QR generator library did not load.";
+  document.body.classList.remove("print-cards");
 
-    return;
+  window.print();
+
+}
+
+function printCards() {
+
+  document.body.classList.add("print-cards");
+
+  window.print();
+
+}
+
+function resetAndScan() {
+
+  printingAnswer = false;
+
+  currentCase = null;
+
+  hasScanned = false;
+
+  document.body.classList.remove("print-cards");
+
+  document.getElementById("answer").classList.add("hidden");
+
+  document.getElementById("controls").classList.add("hidden");
+
+  document.getElementById("scannerPanel").classList.remove("hidden");
+
+  document.getElementById("status").textContent =
+
+    "Ready for the next visitor.";
+
+  document.getElementById("startButton").textContent = "START CAMERA";
+
+  startScanner();
+
+}
+
+window.addEventListener("afterprint", function() {
+
+  if (printingAnswer) {
+
+    resetAndScan();
 
   }
 
-  new QRCode(document.getElementById("qr1"), {
+  document.body.classList.remove("print-cards");
 
-    text: "NYAY-CONSUMER",
+});
 
-    width: 120,
+function generateCards() {
 
-    height: 120
+  const area = document.getElementById("cardsArea");
+
+  Object.keys(cases).forEach(code => {
+
+    const item = cases[code];
+
+    const card = document.createElement("div");
+
+    card.className = "qr-card";
+
+    const heading = document.createElement("h3");
+
+    heading.textContent = item.title;
+
+    const qr = document.createElement("div");
+
+    qr.className = "qr-image";
+
+    const label = document.createElement("p");
+
+    label.className = "small";
+
+    label.textContent = "Scan to learn your rights";
+
+    card.appendChild(heading);
+
+    card.appendChild(qr);
+
+    card.appendChild(label);
+
+    area.appendChild(card);
+
+    new QRCode(qr, {
+
+      text: code,
+
+      width: 150,
+
+      height: 150,
+
+      correctLevel: QRCode.CorrectLevel.H
+
+    });
 
   });
 
-  new QRCode(document.getElementById("qr2"), {
+}
 
-    text: "NYAY-CYBER",
+window.addEventListener("load", function() {
 
-    width: 120,
+  generateCards();
 
-    height: 120
+  // Try to start the camera. If Safari blocks it,
 
-  });
+  // the visitor can tap the Start Camera button.
 
-  new QRCode(document.getElementById("qr3"), {
-
-    text: "NYAY-EQUALITY",
-
-    width: 120,
-
-    height: 120
-
-  });
+  startScanner();
 
 });
 
